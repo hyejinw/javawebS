@@ -43,7 +43,74 @@ public class MessageController {
 			model.addAttribute("msg", "방명록의 글이 삭제 실패~~~");
 			model.addAttribute("url", "/guest/guestList");
 		}
+		// 메일 전송관련
+		else if(msgFlag.equals("mailSendOk")) {
+			model.addAttribute("msg", "메일 전송 완료!");
+			model.addAttribute("url", "/study/mail/mailForm");
+		}
+		// 아이디 중복 체크 관련(join)
+		else if(msgFlag.equals("idCheckNo")) {
+			model.addAttribute("msg", "아이디가 중복되었습니다.");
+			model.addAttribute("url", "/member/memberJoin");
+		}
+		// 닉네임 중복 체크 관련(join)
+		else if(msgFlag.equals("nickCheckNo")) {
+			model.addAttribute("msg", "닉네임이 중복되었습니다.");
+			model.addAttribute("url", "/member/memberJoin");
+		}
+		else if(msgFlag.equals("memberJoinOk")) {
+			model.addAttribute("msg", "회원가입 되었습니다. 반갑습니다.");
+			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("memberJoinNo")) {
+			model.addAttribute("msg", "회원가입이 실패했습니다.");
+			model.addAttribute("url", "/member/memberJoin");
+		}
+		else if(msgFlag.equals("memberLoginOk")) {
+			model.addAttribute("msg", mid+ "님 로그인 되었습니다.");
+			model.addAttribute("url", "/member/memberMain");
+		}
+		else if(msgFlag.equals("memberLoginNo")) {
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("memberLogout")) {
+			model.addAttribute("msg", mid +"님 로그아웃 되었습니다.");
+			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("adminNo")) {
+			model.addAttribute("msg", "관리자만 사용가능한 창입니다.");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("memberNo")) {
+			model.addAttribute("msg", "로그인이 필요합니다.");
+			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("levekCheckNo")) {
+			model.addAttribute("msg", "회원 등급을 확인해주세요.");
+			model.addAttribute("url", "/member/memberMain");
+		}
+		else if(msgFlag.equals("memberIdCheckNo")) {
+			model.addAttribute("msg", "입력하신 아이디는 없는 회원입니다.");
+			model.addAttribute("url", "/member/memberPwdFind");
+		}
+		else if(msgFlag.equals("memberEmailCheckNo")) {
+			model.addAttribute("msg", "입력하신 이메일을 확인해주세요.");
+			model.addAttribute("url", "/member/memberPwdFind");
+		}
 		
+		else if(msgFlag.equals("memberImsiPwdOk")) {
+			model.addAttribute("msg", "임시비밀번호가 발급되었습니다.\\n이메일을 확인해주세요.");
+			model.addAttribute("url", "/member/memberLogin");
+		}
+		else if(msgFlag.equals("memberImsiPwdNo")) {
+			model.addAttribute("msg", "임시비밀번호 전송이 실패했습니다. 재시도 부탁드립니다.");
+			model.addAttribute("url", "/member/memberPwdFind");
+		}
+		else if(msgFlag.equals("memberPwdUpdateOk")) {
+			model.addAttribute("msg", "비밀번호가 변경되었습니다.");
+			model.addAttribute("url", "/member/memberMain");
+		}
 		
 		
 		return "include/message";

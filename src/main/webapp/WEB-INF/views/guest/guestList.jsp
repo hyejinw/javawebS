@@ -70,11 +70,12 @@
       </td>
     </tr>
   </table>
+  <c:set var="curScrStartNo" value="${pageVO.curScrStartNo}" />
   <c:forEach var="vo" items="${vos}" varStatus="st">
 	  <table class="table table-borderless mb-0 mt-0">
 	    <tr>
 	      <td>
-	        번호 : ${pageVO.curScrStartNo}
+	        번호 : ${curScrStartNo}
 	        <c:if test="${sAdmin == 'adminOk'}">
 	        	<a href="javascript:delCheck(${vo.idx})" class="btn btn-danger btn-sm">삭제</a>
 	        </c:if>
