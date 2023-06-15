@@ -111,6 +111,38 @@ public class MessageController {
 			model.addAttribute("msg", "비밀번호가 변경되었습니다.");
 			model.addAttribute("url", "/member/memberMain");
 		}
+		else if(msgFlag.equals("fileUploadOk")) {
+			model.addAttribute("msg", "파일이 업로드 되었습니다.");
+			model.addAttribute("url", "/study/fileUpload/fileUploadForm");
+		}
+		else if(msgFlag.equals("fileUploadNo")) {
+			model.addAttribute("msg", "파일 업로드 실패했습니다.");
+			model.addAttribute("url", "/study/fileUpload/fileUploadForm");
+		}
+		else if(msgFlag.equals("memberPwdCheckNo")) {
+			model.addAttribute("msg", "회원 정보를 확인하세요.");
+			model.addAttribute("url", "/member/memberPwdCheck");
+		}
+		else if(msgFlag.equals("memberNickCheckNo")) {
+			model.addAttribute("msg", "닉네임을 확인하세요.");
+			model.addAttribute("url", "/member/memberMain");
+		}
+		else if(msgFlag.equals("memberUpdateOk")) {
+			model.addAttribute("msg", "회원정보가 수정되었습니다.");
+			model.addAttribute("url", "/member/memberMain");
+		}
+		else if(msgFlag.equals("memberUpdateNo")) {
+			model.addAttribute("msg", "회원정보가 수정되지 못했습니다.\\n재시도 부탁드립니다.");
+			model.addAttribute("url", "/member/memberUpdate");
+		}
+		else if(msgFlag.equals("memberDeleteOk")) {
+			model.addAttribute("msg", "탈퇴되었습니다. 함께 해주셔서 감사했습니다!");
+			model.addAttribute("url", "/");
+		}
+		else if(msgFlag.equals("memberDeleteNo")) {
+			model.addAttribute("msg", "탈퇴되지 않았습니다. 재시도 부탁드립니다.");
+			model.addAttribute("url", "/");
+		}
 		
 		
 		return "include/message";

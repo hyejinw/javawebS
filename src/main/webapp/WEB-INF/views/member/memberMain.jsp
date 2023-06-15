@@ -26,6 +26,11 @@
     <a href="${ctp}/member/memberPwdUpdate" class="btn btn-success">비밀번호변경</a>
     <hr/>		
 	</c:if>
+	<hr/>
+	<p>
+		회원 사진: <img src="${ctp}/resources/data/member/${vo.photo}" width="150px"/>
+	</p>
+	
 </div>
 <p><br/></p>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
