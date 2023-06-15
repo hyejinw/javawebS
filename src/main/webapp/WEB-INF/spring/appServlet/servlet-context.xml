@@ -18,6 +18,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/font/**" location="/resources/font/" />
 	<resources mapping="/images/**" location="/resources/images/" />
+	<resources mapping="/member/**" location="/resources/data/member/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,6 +30,13 @@
 	
 	<!-- BCryptPasswordEncoder 객체를 위한 Bean 등록 -->
   <beans:bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<!-- 파일 업로드에 필요한 라이브러리를 Bean으로 등록(업로드 최대 용량제한: 20MByte) -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="20971520" />
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+	
 	
 	
 	<!-- Interceptor 설정 -->

@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
+
+<script>
+	'use strict';
+	
+	function memberDelete() {
+		let ans = confirm('탈퇴하시겠습니까?');
+		if(!ans) return false;
+		else {
+			ans = confirm('탈퇴 후 1개월 동안 같은 아이디로 재가입이 불가합니다.\n그래도 탈퇴하시겠습니까?');
+			if(!ans) return false;
+			
+			location.href='${ctp}/member/memberDelete';
+		}
+	}
+</script>
+
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card">
@@ -21,6 +37,7 @@
 	        <a href="${ctp}/study/mail/mailForm" class="w3-bar-item w3-button">메일연습</a>
 	        <a href="${ctp}/study/uuid/uuidForm" class="w3-bar-item w3-button">UUID연습</a>
 	        <a href="${ctp}/study/ajax/ajaxForm" class="w3-bar-item w3-button">AJAX연습</a>
+	        <a href="${ctp}/study/fileUpload/fileUploadForm" class="w3-bar-item w3-button">파일 업로드연습</a>
 	      </div>
 	    </div>
 	    <div class="w3-dropdown-hover w3-hide-small">
@@ -28,7 +45,7 @@
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
 	        <a href="${ctp}/member/memberList" class="w3-bar-item w3-button">회원리스트</a>
 	        <a href="${ctp}/member/memberPwdUpdate/pwdFlag=member" class="w3-bar-item w3-button">비밀번호 변경</a>
-	        <a href="${ctp}/member/memberUpdate" class="w3-bar-item w3-button">정보수정</a>
+	        <a href="${ctp}/member/memberPwdCheck" class="w3-bar-item w3-button">정보수정</a>
 	        <a href="javascript:memberDelete()" class="w3-bar-item w3-button">탈퇴</a>
 	        <c:if test="${sLevel==0}"><a href="${ctp}/admin/adminMenu" class="w3-bar-item w3-button">관리자</a></c:if>
 	      </div>

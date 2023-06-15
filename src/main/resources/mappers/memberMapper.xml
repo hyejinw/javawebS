@@ -30,4 +30,13 @@
   	select mid from member2 where name = #{name} and email = #{email};
   </select>
   
+	<update id="setMemberUpdateOk">
+    update member2 set nickName=#{vo.nickName},name=#{vo.name},gender=#{vo.gender},birthday=#{vo.birthday},tel=#{vo.tel},address=#{vo.address},email=#{vo.email},homePage=#{vo.homePage},job=#{vo.job},hobby=#{vo.hobby},photo=#{vo.photo},content=#{vo.content},userInfor=#{vo.userInfor} where mid=#{vo.mid};
+  </update>
+
+	<update id="getMemberDelete">
+    update member2 set userDel='OK' where mid=#{mid};
+  </update>
+  
+  
 </mapper>

@@ -8,18 +8,22 @@ import com.spring.javawebS.vo.MemberVO;
 
 public interface MemberDAO {
 
-	MemberVO getMemberIdCheck(@Param("mid") String mid);
+	public MemberVO getMemberIdCheck(@Param("mid") String mid);
 
-	MemberVO getMemberNickCheck(@Param("nickName") String nickName);
+	public MemberVO getMemberNickCheck(@Param("nickName") String nickName);
 
-	int setMemberJoinOk(@Param("vo") MemberVO vo);
+	public int setMemberJoinOk(@Param("vo") MemberVO vo);
 
-	void setMemberVisitProcess(@Param("vo") MemberVO vo);
+	public void setMemberVisitProcess(@Param("vo") MemberVO vo);
 
-	ArrayList<MemberVO> getMemberList();
+	public ArrayList<MemberVO> getMemberList();
 
-	void setMemberPwdUpdate(@Param("mid") String mid, @Param("pwd") String pwd);
+	public void setMemberPwdUpdate(@Param("mid") String mid, @Param("pwd") String pwd);
 
-	String getMemberMidFind(@Param("name") String name, @Param("email") String email);
+	public String getMemberMidFind(@Param("name") String name, @Param("email") String email);
+	
+	public void setMemberUpdateOk(@Param("vo") MemberVO vo);
+	
+	public int getMemberDelete(@Param("mid") String mid);
 
 }

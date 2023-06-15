@@ -1,9 +1,17 @@
 package com.spring.javawebS.service;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.javawebS.dao.StudyDAO;
 import com.spring.javawebS.vo.MemberVO;
@@ -132,6 +140,40 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public ArrayList<MemberVO> getMemberMidSearch2(String name) {
 		return studyDAO.getMemberMidSearch2(name);
+	}
+
+	@Override
+	public int fileUpload(MultipartFile fName, String mid) {
+		int res = 0;
+		
+		// 업로드한 파일명 중복 방지!
+		UUID uid = UUID.randomUUID();
+		String oFileName = fName.getOriginalFilename();
+		String saveFileName = mid + "_" + uid +"_"+ oFileName;
+		
+//		System.out.println("oFileName : " + oFileName);
+		
+		// 메모리에 올라와 있는 파일의 정보를 실제 서버 파일시스템에 저장처리
+		try {
+			writeFile(fName, saveFileName);
+			res = 1;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+		return res;
+	}
+
+	public void writeFile(MultipartFile fName, String saveFileName) throws IOException {
+		byte[] data = fName.getBytes();
+		//String realPath = request.getRealPath("/resources/data/study/");
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/study/");
+		
+		FileOutputStream fos = new FileOutputStream(realPath + saveFileName);
+		fos.write(data);
+		fos.close();
 	}
 	
 }
