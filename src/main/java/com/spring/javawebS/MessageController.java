@@ -143,6 +143,14 @@ public class MessageController {
 			model.addAttribute("msg", "탈퇴되지 않았습니다. 재시도 부탁드립니다.");
 			model.addAttribute("url", "/");
 		}
+		else if(msgFlag.equals("boardInputOk")) {
+			model.addAttribute("msg", "게시글이 등록되었습니다.");
+			model.addAttribute("url", "/board/boardList");
+		}
+		else if(msgFlag.equals("boardInputNo")) {
+			model.addAttribute("msg", "게시글이 등록되지 않았습니다.\\n재시도 부탁드립니다.");
+			model.addAttribute("url", "/board/boardInput");
+		}
 		
 		
 		return "include/message";
