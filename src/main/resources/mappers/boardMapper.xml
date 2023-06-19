@@ -20,6 +20,15 @@
 		  (select idx from board2 where <![CDATA[idx > #{idx}]]> limit 1));
   </select>
   
+  <!-- 검색 구현 -->
+  <select id="totRecCntSearch" resultType="int">
+    select count(*) from board2 where ${search} like concat('%',#{searchString},'%');
+  </select>
+  
+  <select id="getBoardListSearch" resultType="com.spring.javawebS.vo.BoardVO">
+    select * from board2 where ${search} like concat('%',#{searchString},'%')setBoardDelete order by idx desc limit #{startIndexNo}, #{pageSize};
+  </select>
+  
   
   
   
@@ -32,5 +41,10 @@
   <update id="setBoardReadNum">
     update board2 set readNum = readNum + 1 where idx = #{idx};
   </update>
+  
+  
+  <delete id="setBoardDelete">
+  	delete from board2 where idx = #{idx};
+  </delete>
   
 </mapper>

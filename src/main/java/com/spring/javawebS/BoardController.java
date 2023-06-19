@@ -3,6 +3,7 @@ package com.spring.javawebS;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,56 @@ public class BoardController {
 		model.addAttribute("pageSize", pageSize);
 		
 		return "board/boardContent";
+	}
+	
+	
+	// 게시판 검색
+	@RequestMapping(value = "/boardSearch", method = RequestMethod.GET)
+	public String boardSearchGet(String search, String searchString,
+			@RequestParam(name="pag", defaultValue = "1", required=false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required=false) int pageSize,
+			Model model) {
+		
+		PageVO pageVO = pageProcess.totRecCnt(pag, pageSize, "board", search, searchString);
+		
+		List<BoardVO> vos = boardService.getBoardListSearch(pageVO.getStartIndexNo(), pageSize, search, searchString);
+		
+		
+		String searchTitle = "";
+		if(pageVO.getSearch().equals("title")) searchTitle = "글 제목";
+		else if(pageVO.getSearch().equals("name")) searchTitle = "글쓴이";
+		else searchTitle = "글 내용";
+		
+		model.addAttribute("vos", vos);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("searchTitle", searchTitle);
+		//model.addAttribute("searchCount", vos.size());
+		
+		return "board/boardSearch";
+	}
+	
+	// 게시글 삭제
+	@RequestMapping(value = "/boardDelete", method = RequestMethod.GET)
+	public String boardDeleteGet(HttpSession session, 
+			@RequestParam(name="idx", defaultValue = "0", required=false) int idx,
+			@RequestParam(name="pag", defaultValue = "1", required=false) int pag,
+			@RequestParam(name="pageSize", defaultValue = "5", required=false) int pageSize,
+			@RequestParam(name="nickName", defaultValue = "", required=false) int nickName) {
+		
+		String sNickName = (String)session.getAttribute("sNickName");
+		if(!sNickName.equals(nickName)) return "redirect:/";
+		
+		// 게시글에 사진이 존재한다면 서버에 있는 사진파일을 먼저 삭제
+		BoardVO vo = boardService.getBoardContent(idx);
+		if(vo.getContent().indexOf("src=\"/") != -1) boardService.imgDelete(vo.getContent());
+		
+		
+		// DB에서 실제로 존재하는 게시글을 삭제처리
+		int res = boardService.setBoardDelete(idx);
+		if(res == 1) return "redirect:/message/boardDeleteOk";
+		else return "redirect:/message/boardDeleteNo?idx="+idx+"pag="+pag+"&pageSize="+pageSize;
+		
+		
 	}
 	
 }

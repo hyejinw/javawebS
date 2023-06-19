@@ -80,7 +80,7 @@
     
     function boardDelete() {
     	let ans = confirm("현 게시글을 삭제하시겠습니까?");
-    	if(ans) location.href="${ctp}/board/boardDelete?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&nickName=${vo.nickName}";
+    	if(ans) location.href="${ctp}/board/boardDelete?idx=${vo.idx}&pag=${pageVO.pag}&pageSize=${pageVO.pag}&nickName=${vo.nickName}";
     }
     
     // 댓글달기(aJax처리)

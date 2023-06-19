@@ -155,7 +155,7 @@
   <br/>
   <!-- 검색기 처리 -->
   <div class="container text-center">
-  	<form name="searchForm" method="post" action="${ctp}/board/boardSearch">
+  	<form name="searchForm" method="get" action="${ctp}/board/boardSearch">
   		<b>검색 : </b>
   		<select name="search">
   			<option value="title" selected>제목</option>   <!-- 이렇게 미리 value를 주면 back에서 처리할 때 편하다. -->

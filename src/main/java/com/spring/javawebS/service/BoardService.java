@@ -19,4 +19,10 @@ public interface BoardService {
 
 	public ArrayList<BoardVO> getPrevNext(int idx);
 
+	public List<BoardVO> getBoardListSearch(int startIndexNo, int pageSize, String search, String searchString);
+
+	public void imgDelete(String content);
+
+	public int setBoardDelete(int idx);
+
 }

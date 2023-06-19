@@ -103,6 +103,59 @@ public class BoardServieImpl implements BoardService {
 	public ArrayList<BoardVO> getPrevNext(int idx) {
 		return boardDAO.getPrevNext(idx);
 	}
+
+	@Override
+	public List<BoardVO> getBoardListSearch(int startIndexNo, int pageSize, String search, String searchString) {
+		return boardDAO.getBoardListSearch(startIndexNo, pageSize, search, searchString);
+	}
+
+	// 게시글 그림 삭제
+	@Override
+	public void imgDelete(String content) {
+		
+		//             0         1         2         3         4
+		//             01234567890123456789012345678901234567890
+		// <img alt="" src="/javawebS/data/board/230616141341_sanfran.jpg" style="height:300px; width:400px" /></p><p><img alt="" src="/javawebS/data/ckeditor/230616141353_paris.jpg" style="height:300px; width:400px" /></p>
+		
+		// content안에 그림파일이 존재한다면 그림을 /data/board/폴더로 복사처리한다. 없으면 돌려보낸다.
+		if(content.indexOf("src=\"/") == -1) return;
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
+		
+		int position = 26;
+		String nextImg = content.substring(content.indexOf("src=\"/") + position);
+		boolean sw = true;
+		
+		while(sw) {
+			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));  // 그림파일명만 꺼내오기
+			
+			String origFilePath = realPath + "board/" + imgFile;
+			
+			fileDelete(origFilePath);	// ckeditor폴더의 그림파일을 board폴더위치로 복사처리한다.
+			
+			if(nextImg.indexOf("src=\"/") == -1) {
+				sw = false;
+			}
+			else {
+				nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
+	
+			
+			}
+		}
+	}
+	
+	// 실제 서버 파일 삭제처리
+	public void fileDelete(String origFilePath) {
+		File delFile = new File(origFilePath);
+		if(delFile.exists()) delFile.delete();
+	}
+
+	@Override
+	public int setBoardDelete(int idx) {
+		return boardDAO.setBoardDelete(idx);
+	}
+
 	
 	
 }
