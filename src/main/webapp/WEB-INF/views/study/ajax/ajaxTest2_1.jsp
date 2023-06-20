@@ -78,6 +78,7 @@
   <hr/>
 	<div id="demo"></div>
 </div>
+<hr/>
 <p><br/></p>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>

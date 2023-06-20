@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>ajaxForm.jsp</title>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
   <script>
     'use strict';
@@ -33,20 +33,17 @@
   <h2>AJax 연습</h2>
   <hr/>
   <p>기본(String) :
-    <a href="javascript:aJaxTest1(10)" class="btn btn-secondary mr-2">값 전달1</a>
-    <span id="demo"></span>
+    <a href="javascript:aJaxTest1(10)" class="btn btn-secondary mr-2">값전달1</a>
+    : <span id="demo"></span>
   </p>
-  <hr/>
   <p>응용1(배열) :
-    <a href="${ctp}/study/ajax/ajaxTest2_1" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(String 배열)</a>
-    <a href="${ctp}/study/ajax/ajaxTest2_2" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(ArrayList 배열)</a>
-    <a href="${ctp}/study/ajax/ajaxTest2_3" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(Map(HashMap) 배열)</a>
-    <span id="demo2"></span>
+    <a href="${ctp}/study/ajax/ajaxTest2_1" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(String배열)</a>
+    <a href="${ctp}/study/ajax/ajaxTest2_2" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(ArrayList)</a>
+    <a href="${ctp}/study/ajax/ajaxTest2_3" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(Map(HashMap))</a>
+    : <span id="demo2"></span>
   </p>
-  <hr/>
   <p>응용2(DB) :
-    <a href="${ctp}/study/ajax/ajaxTest3" class="btn btn-secondary mr-2">시(도)/구(시,군,동)(String 배열)</a>
-    <span id="demo3"></span>
+    <a href="${ctp}/study/ajax/ajaxTest3" class="btn btn-secondary">회원아이디검색(DB활용)</a>
   </p>
 </div>
 <p><br/></p>

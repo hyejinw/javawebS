@@ -143,23 +143,24 @@
     			document.getElementById("nickNameBtn").focus();
     		}
     		else {
-    			let hobbies = "";
+    			let hobbys = "";
     			let hobby = document.getElementsByName("hobby");
     			for(let i=0; i<hobby.length; i++) {
     				if(document.getElementsByName("hobby")[i].checked == true) {
-    					hobbies += document.getElementsByName("hobby")[i].value + "/";
+    					hobbys += document.getElementsByName("hobby")[i].value + "/";
     				}
     			}
+    			//alert("hobbys : " + hobbys);
     			
-    			myform.hobbies.value = hobbies;
 	    		myform.email.value = email;
 	    		myform.tel.value = tel;
+    			myform.hobbys.value = hobbys;
 	    		
 		    	myform.submit();
     		}
     	}
     	else {
-    		alert("회원가입 실패! 폼의 내용을 확인하세요.");
+    		alert("회원가입 실패~~ 폼의 내용을 확인하세요.");
     	}
     	
     }
@@ -168,7 +169,7 @@
     function idCheck() {
     	let mid = myform.mid.value;
     	if(mid.trim() == "" || mid.length < 4 || mid.length > 20) {
-    		alert("아이디를 확인하세요! (아이디는 4~20자 이내)");
+    		alert("아이디를 확인하세요!(아이디는 4~20자 이내)");
     		myform.mid.focus();
     		return false;
     	}
@@ -179,7 +180,7 @@
     		data : {mid : mid},
     		success:function(res) {
     			if(res == "1") {
-    				alert("이미 사용 중인 아이디 입니다. 다시 입력해 주세요");
+    				alert("이미 사용중인 아이디 입니다. 다시 입력해 주세요");
     				$("#mid").focus();
     			}
     			else  {
@@ -189,14 +190,13 @@
     			}
     		}
     	});
-    	
     }
     
     // 닉네임 중복체크
     function nickCheck() {
     	let nickName = myform.nickName.value;
-    	if(nickName.trim() == "" || mid.length < 2 || mid.length > 20) {
-    		alert("닉네임을 확인하세요! (2 ~ 20자 이내)");
+    	if(nickName.trim() == "" || nickName.length < 2 || nickName.length > 20) {
+    		alert("닉네임을 확인하세요!(닉네임는 2~20자 이내)");
     		myform.nickName.focus();
     		return false;
     	}
@@ -207,7 +207,7 @@
     		data : {nickName : nickName},
     		success:function(res) {
     			if(res == "1") {
-    				alert("이미 사용 중인 닉네임 입니다. 다시 입력해 주세요");
+    				alert("이미 사용중인 닉네임 입니다. 다시 입력해 주세요");
     				$("#nickName").focus();
     			}
     			else  {
@@ -217,8 +217,8 @@
     			}
     		}
     	});
-    	
     }
+    
   </script>
 </head>
 <body>
@@ -408,7 +408,7 @@
     <input type="hidden" name="tel" />
     <input type="hidden" name="address" />
     <input type="hidden" name="photo"/>
-    <input type="hidden" name="hobbies"/>
+    <input type="hidden" name="hobbys"/>
   </form>
 </div>
 <p><br/></p>

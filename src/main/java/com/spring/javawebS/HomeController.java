@@ -3,6 +3,7 @@ package com.spring.javawebS;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +38,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/imageUpload")
-	public void imageUploadGet(MultipartFile upload, 
+	public void imageUploadGet(MultipartFile upload,
 			HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/ckeditor/");
 		String oFileName = upload.getOriginalFilename();
@@ -49,7 +51,7 @@ public class HomeController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		oFileName = sdf.format(date) + "_" + oFileName;
 		
-		// ckeditor에서 올린(전송)한 파일을 서버파일시스템에 실제로 저장 처리
+		// ckeditor에서 올린(전송)한 파일을 서버 파일시스템에 실제로 저장처리시켜준다.
 		byte[] bytes = upload.getBytes();
 		FileOutputStream fos = new FileOutputStream(new File(realPath + oFileName));
 		fos.write(bytes);

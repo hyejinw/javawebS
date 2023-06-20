@@ -14,7 +14,7 @@ public class Level1Interceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
 		
-		// 우수회원 이상 (정회원, 준회원, 비회원)
+		// 우수회원이상(정회원, 준회원, 비회원)
 		if(level > 1) {
 			RequestDispatcher dispatcher;
 			if(level == 99) {	// 비회원

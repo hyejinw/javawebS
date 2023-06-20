@@ -11,20 +11,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 public class JavawebProvide {
-
 	public int fileUpload(MultipartFile fName, String urlPath) {
 		int res = 0;
-		
 		try {
-			// 업로드한 파일명 중복 방지!
 			UUID uid = UUID.randomUUID();
 			String oFileName = fName.getOriginalFilename();
-			String saveFileName = uid +"_"+ oFileName;
-			
-			// 메모리에 올라와 있는 파일의 정보를 실제 서버 파일시스템에 저장 처리
+			String saveFileName = uid + "_" + oFileName;
 			writeFile(fName, saveFileName, urlPath);
 			res = 1;
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

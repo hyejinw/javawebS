@@ -83,25 +83,28 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public ArrayList<String> getCityArrayList(String dodo) {
 		ArrayList<String> vos = new ArrayList<String>();
-		if (dodo.equals("서울")) {
-	    vos.add("강남구");
-	    vos.add("서초구");
-	    vos.add("마포구");
-	    vos.add("영등포구");
-	    vos.add("관악구");
-	    vos.add("중구");
-	    vos.add("동대문구");
-	    vos.add("성북구");
-		} else if (dodo.equals("경기")) {
-	    vos.add("수원시");
-	    vos.add("안양시");
-	    vos.add("안성시");
-	    vos.add("고양시");
-	    vos.add("일산시");
-	    vos.add("용인시");
-	    vos.add("의정부시");
-	    vos.add("광명시");
-		} else if (dodo.equals("충북")) {
+		
+		if(dodo.equals("서울")) {
+			vos.add("강남구");
+			vos.add("서초구");
+			vos.add("마포구");
+			vos.add("영등포구");
+			vos.add("관악구");
+			vos.add("중구");
+			vos.add("동대문구");
+			vos.add("성북구");
+		}
+		else if(dodo.equals("경기")) {
+			vos.add("수원시");
+			vos.add("안양시");
+			vos.add("안성시");
+			vos.add("고양시");
+			vos.add("일산시");
+			vos.add("용인시");
+			vos.add("의정부시");
+			vos.add("광명시");
+		}
+		else if (dodo.equals("충북")) {
 	    vos.add("청주시");
 	    vos.add("충주시");
 	    vos.add("옥천군");
@@ -110,7 +113,8 @@ public class StudyServiceImpl implements StudyService {
 	    vos.add("음성군");
 	    vos.add("괴산군");
 	    vos.add("증평군");
-		} else if (dodo.equals("충남")) {
+		} 
+		else if (dodo.equals("충남")) {
 	    vos.add("천안시");
 	    vos.add("아산시");
 	    vos.add("홍성군");
@@ -119,7 +123,8 @@ public class StudyServiceImpl implements StudyService {
 	    vos.add("청양군");
 	    vos.add("부여군");
 	    vos.add("논산시");
-		} else if (dodo.equals("경북")) {
+		} 
+		else if (dodo.equals("경북")) {
 	    vos.add("봉화군");
 	    vos.add("구미시");
 	    vos.add("영주시");
@@ -146,21 +151,19 @@ public class StudyServiceImpl implements StudyService {
 	public int fileUpload(MultipartFile fName, String mid) {
 		int res = 0;
 		
-		// 업로드한 파일명 중복 방지!
 		UUID uid = UUID.randomUUID();
 		String oFileName = fName.getOriginalFilename();
-		String saveFileName = mid + "_" + uid +"_"+ oFileName;
+		String saveFileName = mid + "_" + uid + "_" + oFileName;
+		// System.out.println("oFileName : " + oFileName);
 		
-//		System.out.println("oFileName : " + oFileName);
-		
-		// 메모리에 올라와 있는 파일의 정보를 실제 서버 파일시스템에 저장처리
+		// 메모리에 올라와 있는 파일의 정보를 실제 서버 파일시스템에 저장처리한다.
 		try {
 			writeFile(fName, saveFileName);
 			res = 1;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-				
+		
 		return res;
 	}
 

@@ -20,7 +20,7 @@ import com.spring.javawebS.vo.GuestVO;
 @Controller
 @RequestMapping("/guest")
 public class GuestController {
-
+	
 	@Autowired
 	GuestService guestService;
 //	GuestServieImpl guestService;

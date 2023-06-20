@@ -1,6 +1,7 @@
 package com.spring.javawebS.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import com.spring.javawebS.vo.MemberVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
+	
 	@Autowired
 	MemberDAO memberDAO;
 
@@ -34,10 +35,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int setMemberJoinOk(MemberVO vo, MultipartFile fName) {
+	public int setMemberJoinOk(MultipartFile fName, MemberVO vo) {
 		int res = 0;
+		
 		try {
-			// 업로드된 사진을 서버 파일시스템에 저장처리한다.
 			String oFileName = fName.getOriginalFilename();
 			
 			if(oFileName.equals("")) {
@@ -51,9 +52,7 @@ public class MemberServiceImpl implements MemberService {
 				jp.writeFile(fName, saveFileName, "member");
 				
 				vo.setPhoto(saveFileName);
-			}	 
-			
-			// 메모리에 올라와 있는 파일의 정보를 실제 서버 파일시스템에 저장처리한다.
+			}
 			memberDAO.setMemberJoinOk(vo);
 			res = 1;
 		} catch (IOException e) {
@@ -62,17 +61,14 @@ public class MemberServiceImpl implements MemberService {
 		return res;
 	}
 
-	
-	
 	@Override
 	public void setMemberVisitProcess(MemberVO vo) {
 		memberDAO.setMemberVisitProcess(vo);
-		
 	}
 
 	@Override
-	public ArrayList<MemberVO> getMemberList() {
-		return memberDAO.getMemberList();
+	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize, String mid) {
+		return memberDAO.getMemberList(startIndexNo, pageSize, mid);
 	}
 
 	@Override
@@ -81,17 +77,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String getMemberMidFind(String name, String email) {
-		return memberDAO.getMemberMidFind(name, email);
-	}
-
-	@Override
 	public int setMemberUpdateOk(MultipartFile fName, MemberVO vo) {
 		int res = 0;
 		try {
 			String oFileName = fName.getOriginalFilename();
-			
-			// 파일 정보 수정이 있을 경우에만 수정하라
 			if(!oFileName.equals("")) {
 				UUID uid = UUID.randomUUID();
 				String saveFileName = uid + "_" + oFileName;
@@ -108,11 +97,9 @@ public class MemberServiceImpl implements MemberService {
 				}
 				// 기존에 존재하는 파일을 지우고, 새로 업로드시킨 파일명을 set시켜준다.
 				vo.setPhoto(saveFileName);
-				
 			}
 			memberDAO.setMemberUpdateOk(vo);
 			res = 1;
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -120,8 +107,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int getMemberDelete(String mid) {
-		return memberDAO.getMemberDelete(mid);
+	public void setMemberDeleteOk(String mid) {
+		memberDAO.setMemberDeleteOk(mid);
 	}
 	
 }

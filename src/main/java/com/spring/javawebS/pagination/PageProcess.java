@@ -5,27 +5,33 @@ import org.springframework.stereotype.Service;
 
 import com.spring.javawebS.dao.BoardDAO;
 import com.spring.javawebS.dao.GuestDAO;
+import com.spring.javawebS.dao.MemberDAO;
 
 @Service
 public class PageProcess {
 
 	@Autowired
 	GuestDAO guestDAO;
-
+	
+	@Autowired
+	MemberDAO memberDAO;
+	
 	@Autowired
 	BoardDAO boardDAO;
 	
-	public PageVO totRecCnt(int pag, int pageSize, String section, String search, String searchString) {
+	public PageVO totRecCnt(int pag, int pageSize, String section, String part, String searchString) {
 		PageVO pageVO = new PageVO();
 		
 		int totRecCnt = 0;
+		String search = "";
 		
 		if(section.equals("guest"))	totRecCnt = guestDAO.totRecCnt();
-//		else if(section.equals("member"))	totRecCnt = memberDAO.totRecCnt();
-		else if(section.equals("board"))	{
-			if(search.equals("")) totRecCnt = boardDAO.totRecCnt();
+		else if(section.equals("member"))	totRecCnt = memberDAO.totRecCnt(searchString);
+		else if(section.equals("board")) {
+			if(part.equals("")) totRecCnt = boardDAO.totRecCnt();
 			else {
-				totRecCnt = boardDAO.totRecCntSearch(search, searchString);   // 오버로딩!! 매개변수의 타입이나 개수 순서를 다르게 쓰는 것
+				search = part;
+				totRecCnt = boardDAO.totRecCntSearch(search, searchString);
 			}
 		}
 		
@@ -46,6 +52,7 @@ public class PageProcess {
 		pageVO.setCurBlock(curBlock);
 		pageVO.setBlockSize(blockSize);
 		pageVO.setLastBlock(lastBlock);
+		pageVO.setPart(part);
 		pageVO.setSearch(search);
 		pageVO.setSearchString(searchString);
 		

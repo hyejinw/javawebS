@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ajaxTest2_1.jsp</title>
+  <title>ajaxTest2_3.jsp</title>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
   <script>
     'use strict';
@@ -36,13 +36,14 @@
     			data : {dodo : dodo},
     			success:function(res) {
     				//alert("res : " + res);
-     				let str = '';
+    				
+    				let str = '';
     				str += '<option value="">도시선택</option>';
     				for(let i=0; i<res.city.length; i++) {
-    					if(res.city[i] == null) break;
     					str += '<option>'+res.city[i]+'</option>';
     				}
     				$("#city").html(str);
+    				
     			},
     			error : function() {
     				alert("전송오류!");
@@ -78,6 +79,7 @@
   <hr/>
 	<div id="demo"></div>
 </div>
+<hr/>
 <p><br/></p>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>

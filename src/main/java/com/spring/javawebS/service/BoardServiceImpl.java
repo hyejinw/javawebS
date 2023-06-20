@@ -19,7 +19,7 @@ import com.spring.javawebS.dao.BoardDAO;
 import com.spring.javawebS.vo.BoardVO;
 
 @Service
-public class BoardServieImpl implements BoardService {
+public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	BoardDAO boardDAO;
@@ -68,7 +68,7 @@ public class BoardServieImpl implements BoardService {
 		}
 	}
 
-	// 파일을 복사 처리
+	// 파일을 복사처리...
 	private void fileCopyCheck(String origFilePath, String copyFilePath) {
 		try {
 			FileInputStream  fis = new FileInputStream(new File(origFilePath));
@@ -105,14 +105,17 @@ public class BoardServieImpl implements BoardService {
 	}
 
 	@Override
+	public void boardGoodFlagCheck(int idx, int gFlag) {
+		boardDAO.boardGoodFlagCheck(idx, gFlag);
+	}
+
+	@Override
 	public List<BoardVO> getBoardListSearch(int startIndexNo, int pageSize, String search, String searchString) {
 		return boardDAO.getBoardListSearch(startIndexNo, pageSize, search, searchString);
 	}
 
-	// 게시글 그림 삭제
 	@Override
 	public void imgDelete(String content) {
-		
 		//             0         1         2         3         4
 		//             01234567890123456789012345678901234567890
 		// <img alt="" src="/javawebS/data/board/230616141341_sanfran.jpg" style="height:300px; width:400px" /></p><p><img alt="" src="/javawebS/data/ckeditor/230616141353_paris.jpg" style="height:300px; width:400px" /></p>
@@ -128,25 +131,23 @@ public class BoardServieImpl implements BoardService {
 		boolean sw = true;
 		
 		while(sw) {
-			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));  // 그림파일명만 꺼내오기
+			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));	// 그림파일명만 꺼내오기
 			
 			String origFilePath = realPath + "board/" + imgFile;
 			
-			fileDelete(origFilePath);	// ckeditor폴더의 그림파일을 board폴더위치로 복사처리한다.
+			fileDelete(origFilePath);	// 'board'폴더의 그림을 삭제처리한다.
 			
 			if(nextImg.indexOf("src=\"/") == -1) {
 				sw = false;
 			}
 			else {
 				nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
-	
-			
 			}
 		}
 	}
-	
-	// 실제 서버 파일 삭제처리
-	public void fileDelete(String origFilePath) {
+
+	// 실제로 서버의 파일을 삭제처리한다.
+	private void fileDelete(String origFilePath) {
 		File delFile = new File(origFilePath);
 		if(delFile.exists()) delFile.delete();
 	}
@@ -156,6 +157,43 @@ public class BoardServieImpl implements BoardService {
 		return boardDAO.setBoardDelete(idx);
 	}
 
-	
+	@Override
+	public void imgCheckUpdate(String content) {
+		//             0         1         2         3         4
+		//             01234567890123456789012345678901234567890
+		// <img alt="" src="/javawebS/data/board/230616141341_sanfran.jpg" style="height:300px; width:400px" /></p><p><img alt="" src="/javawebS/data/ckeditor/230616141353_paris.jpg" style="height:300px; width:400px" /></p>
+		// <img alt="" src="/javawebS/data/ckeditor/230616141341_sanfran.jpg" style="height:300px; width:400px" /></p><p><img alt="" src="/javawebS/data/ckeditor/230616141353_paris.jpg" style="height:300px; width:400px" /></p>
+		
+		// content안에 그림파일이 존재한다면 그림을 /data/board/폴더로 복사처리한다. 없으면 돌려보낸다.
+		if(content.indexOf("src=\"/") == -1) return;
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		String realPath = request.getSession().getServletContext().getRealPath("/resources/data/");
+		
+		int position = 26;
+		String nextImg = content.substring(content.indexOf("src=\"/") + position);
+		boolean sw = true;
+		
+		while(sw) {
+			String imgFile = nextImg.substring(0, nextImg.indexOf("\""));
+			
+			String origFilePath = realPath + "board/" + imgFile;
+			String copyFilePath = realPath + "ckeditor/" + imgFile;
+			
+			fileCopyCheck(origFilePath, copyFilePath);	// ckeditor폴더의 그림파일을 board폴더위치로 복사처리한다.
+			
+			if(nextImg.indexOf("src=\"/") == -1) {
+				sw = false;
+			}
+			else {
+				nextImg = nextImg.substring(nextImg.indexOf("src=\"/") + position);
+			}
+		}
+	}
+
+	@Override
+	public int setBoardUpdate(BoardVO vo) {
+		return boardDAO.setBoardUpdate(vo);
+	}
 	
 }

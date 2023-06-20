@@ -14,7 +14,8 @@ public class PageVO {
 	private int blockSize;
 	private int lastBlock;
 	
-	//private String part;
+	private String part;
 	private String search;
 	private String searchString;
+	
 }

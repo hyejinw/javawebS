@@ -29,7 +29,7 @@
     <table class="table table-bordered">
       <tr>
         <th>비밀번호</th>
-        <td><input type="password" name="pwd" id="pwd" class="form-control" required /></td>
+        <td><input type="password" name="pwd" id="pwd" class="form-control" required autofocus /></td>
       </tr>
       <tr>
         <td colspan="2" class="text-center">

@@ -121,10 +121,10 @@
     	// 전송전에 모든 체크가 끝나면 submitFlag가 1로 되게된다. 이때 값들을 서버로 전송처리한다.
     	if(submitFlag == 1) {
     		if(nickName == '${sNickName}') nickCheckSw = 1;
-  			if(nickCheckSw == 0) {
+    		if(nickCheckSw == 0) {
     			alert("닉네임 중복체크버튼을 눌러주세요!");
     			document.getElementById("nickNameBtn").focus();
-  			}
+    		}
     		else {
     			let hobbys = "";
     			let hobby = document.getElementsByName("hobby");
@@ -156,7 +156,10 @@
     		myform.nickName.focus();
     		return false;
     	}
-    	
+    	if(nickName == '${sNickName}') {
+    		nickCheckSw = 1;
+    		return false;
+    	}
     	
     	$.ajax({
     		type : "post",

@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class BoardVO {
-	
 	private int idx;
 	private String mid;
 	private String nickName;
@@ -18,11 +17,8 @@ public class BoardVO {
 	private String wDate;
 	private int good;
 	
-	// 게시글 시간 차이 계산용
-	private int hour_diff;
-	
-	// 게시글 날짜 차이 계산용
-	private int day_diff;
+	private int day_diff;		// 날짜 차이 계산 필드(1일차이 계산)
+	private int hour_diff;	// 날짜 차이 계산 필드(24시간차이 계산)
 	
 	// 이전글/다음글을 위한 변수 설정
 	private int preIdx;
@@ -30,6 +26,6 @@ public class BoardVO {
 	private String preTitle;
 	private String nextTitle;
 	
-	// 댓글 개수
-	private int replyCount;
+	private int replyCount;		// 댓글의 개수를 저장하기위한필드
+	
 }

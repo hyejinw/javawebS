@@ -9,7 +9,7 @@ import com.spring.javawebS.dao.GuestDAO;
 import com.spring.javawebS.vo.GuestVO;
 
 @Service
-public class GuestServieImpl implements GuestService {
+public class GuestServiceImpl implements GuestService {
 
 	@Autowired
 	GuestDAO guestDAO;
